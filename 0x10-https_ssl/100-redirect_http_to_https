@@ -21,6 +21,7 @@ global
 defaults
         log     global
         mode    http
+	option  forwardfor
         option  httplog
         option  dontlognull
         timeout connect 5000
@@ -36,11 +37,10 @@ defaults
 
 frontend http_front
         bind *:80
-        option forwardfor
         default_backend http_back
 
 frontend www-https
-        bind *:443 ssl crt /etc/letsencrypt/live/www.gloriaisuwa.tech.pem
+        bind *:443 ssl crt /etc/letsencrypt/live/www.gloriaisuwa.tech/www.gloriaisuwa.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend http_back
 

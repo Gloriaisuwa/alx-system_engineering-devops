@@ -21,6 +21,7 @@ global
 defaults
         log     global
         mode    http
+	option  forwardfor
         option  httplog
         option  dontlognull
         timeout connect 5000
@@ -36,16 +37,14 @@ defaults
 
 frontend http_front
         bind *:80
-        option forwardfor
         default_backend http_back
 
 frontend www-https
-        bind *:443 ssl crt /etc/haproxy/ssl/www.gloriaisuwa.tech.pem
+        bind *:443 ssl crt /etc/haproxy/ssl/www.gloriaisuwa.tech/www.gloriaisuwa.tech.pem
         http-request set-header X-Forwarded-Proto https
         default_backend http_back
 
 backend http_back
         balance roundrobin
-        redirect scheme https if !{ ssl_fc }
         server 525089-web-01 54.144.135.222:80 check
         server 525089-web-02 52.91.145.199:80 check
