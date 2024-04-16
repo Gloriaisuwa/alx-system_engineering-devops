@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Fixes this container so that Nginx is running as the nginx user.
+sudo apt-get update
+sudo apt-get -y install nginx
 sudo sed -i "s/user .*/user nginx;/" /etc/nginx/nginx.conf
 sudo sed -i 's/80/8080/g' /etc/nginx/sites-available/default
 su nginx -c "service nginx restart"
